@@ -1,0 +1,28 @@
+                                                                 QUERY PLAN                                                                  
+---------------------------------------------------------------------------------------------------------------------------------------------
+ WindowAgg  (cost=44153.54..46377.30 rows=111188 width=92) (actual time=133.299..140.741 rows=15097 loops=1)
+   Buffers: shared hit=1491
+   ->  Sort  (cost=44153.54..44431.51 rows=111188 width=60) (actual time=133.292..133.673 rows=15097 loops=1)
+         Sort Key: orders.restaurant_id, ((orders.created_at)::date)
+         Sort Method: quicksort  Memory: 1328kB
+         Buffers: shared hit=1491
+         ->  WindowAgg  (cost=28706.23..30652.02 rows=111188 width=60) (actual time=124.429..129.054 rows=15097 loops=1)
+               Buffers: shared hit=1485
+               ->  Sort  (cost=28706.23..28984.20 rows=111188 width=52) (actual time=124.423..124.851 rows=15097 loops=1)
+                     Sort Key: (sum(orders.total_amount)) DESC
+                     Sort Method: quicksort  Memory: 1210kB
+                     Buffers: shared hit=1485
+                     ->  HashAggregate  (cost=12398.23..15586.20 rows=111188 width=52) (actual time=117.735..120.497 rows=15097 loops=1)
+                           Group Key: orders.restaurant_id, (orders.created_at)::date
+                           Planned Partitions: 8  Batches: 1  Memory Usage: 6673kB
+                           Buffers: shared hit=1482
+                           ->  Seq Scan on orders  (cost=0.00..3259.97 rows=111188 width=25) (actual time=0.051..63.456 rows=110965 loops=1)
+                                 Filter: ((status)::text = 'DELIVERED'::text)
+                                 Rows Removed by Filter: 9035
+                                 Buffers: shared hit=1482
+ Planning:
+   Buffers: shared hit=217
+ Planning Time: 1.792 ms
+ Execution Time: 141.370 ms
+(24 rows)
+
