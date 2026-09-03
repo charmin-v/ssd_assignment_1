@@ -1,0 +1,168 @@
+{
+  "database": "bitestream",
+  "collections": {
+    "Menus": {
+      "description": "Flexible restaurant menu catalog with categories, menu items and customization add-ons.",
+      "fields": {
+        "_id": {
+          "type": "ObjectId",
+          "required": true
+        },
+        "restaurantId": {
+          "type": "String",
+          "required": true
+        },
+        "restaurantName": {
+          "type": "String",
+          "required": false
+        },
+        "categories": {
+          "type": "Array",
+          "required": true,
+          "items": {
+            "type": "Object",
+            "fields": {
+              "name": {
+                "type": "String",
+                "required": true
+              },
+              "items": {
+                "type": "Array",
+                "required": true,
+                "items": {
+                  "type": "Object",
+                  "fields": {
+                    "name": {
+                      "type": "String",
+                      "required": true
+                    },
+                    "description": {
+                      "type": "String",
+                      "required": false
+                    },
+                    "price": {
+                      "type": "Decimal",
+                      "required": true
+                    },
+                    "available": {
+                      "type": "Boolean",
+                      "required": true
+                    },
+                    "customizationAddOns": {
+                      "type": "Array",
+                      "required": false,
+                      "items": {
+                        "type": "Object",
+                        "fields": {
+                          "name": {
+                            "type": "String",
+                            "required": true
+                          },
+                          "price": {
+                            "type": "Decimal",
+                            "required": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "updatedAt": {
+          "type": "Date",
+          "required": true
+        }
+      }
+    },
+
+    "Reviews": {
+      "description": "Customer reviews containing ratings, review text, sentiment tags and timestamps.",
+      "fields": {
+        "_id": {
+          "type": "ObjectId",
+          "required": true
+        },
+        "orderId": {
+          "type": "String",
+          "required": false
+        },
+        "userId": {
+          "type": "String",
+          "required": false
+        },
+        "restaurantId": {
+          "type": "String",
+          "required": true
+        },
+        "rating": {
+          "type": "Integer",
+          "required": true,
+          "constraints": {
+            "minimum": 1,
+            "maximum": 5
+          }
+        },
+        "reviewText": {
+          "type": "String",
+          "required": false
+        },
+        "sentimentTags": {
+          "type": "Array<String>",
+          "required": true
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": true
+        }
+      }
+    },
+
+    "DriverPings": {
+      "description": "Real-time driver location telemetry stored as GeoJSON points.",
+      "fields": {
+        "_id": {
+          "type": "ObjectId",
+          "required": true
+        },
+        "driverId": {
+          "type": "String",
+          "required": true
+        },
+        "active": {
+          "type": "Boolean",
+          "required": true
+        },
+        "location": {
+          "type": "GeoJSON Point",
+          "required": true,
+          "structure": {
+            "type": "Point",
+            "coordinates": [
+              "longitude",
+              "latitude"
+            ]
+          }
+        },
+        "createdAt": {
+          "type": "Date",
+          "required": true,
+          "ttlSeconds": 7200
+        }
+      },
+      "indexes": {
+        "location": {
+          "type": "2dsphere",
+          "purpose": "Geospatial driver searches"
+        },
+        "createdAt": {
+          "type": "TTL",
+          "expireAfterSeconds": 7200,
+          "purpose": "Automatically remove pings older than two hours"
+        }
+      }
+    }
+  }
+}
