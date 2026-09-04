@@ -9,6 +9,7 @@ The project focuses on database engineering concepts including transaction proce
 
 **GitHub Repository:** https://github.com/charmin-v/ssd_assignment_1
 
+**Final Submission Commit:** `7022714778d3a1a8e6a39a619c7cdabc642db7e9`
 
 ## 1. Project Objectives
 
