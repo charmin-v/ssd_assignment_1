@@ -912,12 +912,10 @@ Then create a Pull Request on GitHub.
 Suggested contribution areas:
 
 ```text
-Member 1 → PostgreSQL schema + constraints
-Member 2 → Indexes + triggers + audit logging
-Member 3 → Stored procedure + materialized view
-Member 4 → MongoDB collections + indexes
-Member 5 → MongoDB workflows + analytics
-Member 6 → Data generation + performance analysis
+Member 1 → PostgreSQL schema + ERD
+Member 2 → PostgreSQL advanced logic + analytics
+Member 3 → MongoDB collections + workflows
+Member 4 → Data generation + performance analysis + integration
 ```
 
 The actual division should match the team's size and agreed responsibilities.
