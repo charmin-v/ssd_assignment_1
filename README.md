@@ -5,6 +5,10 @@ BiteStream is a database-focused food delivery and real-time logistics system de
 The project focuses on database engineering concepts including transaction processing, wallet auditing, partial indexing, materialized views, SQL window functions, MongoDB geospatial queries, TTL indexes, and multi-faceted aggregation.
 
 ---
+## Repository
+
+**GitHub Repository:** https://github.com/charmin-v/ssd_assignment_1
+
 
 ## 1. Project Objectives
 
